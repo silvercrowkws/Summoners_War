@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uBD88\uD638\uB8E8\uC2A4"
+      name: "\uBD88 \uD638\uB8E8\uC2A4"
       rect:
         serializedVersion: 2
         x: 161
@@ -157,7 +157,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBD88\uC7AD \uC624 \uB79C\uD134"
+      name: "\uBD88 \uC7AD \uC624 \uB79C\uD134"
       rect:
         serializedVersion: 2
         x: 302
@@ -178,7 +178,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBD88\uC8FC\uC0AC\uC704\uC220\uC0AC"
+      name: "\uBD88 \uC8FC\uC0AC\uC704\uC220\uC0AC"
       rect:
         serializedVersion: 2
         x: 444
@@ -839,6 +839,8 @@ TextureImporter:
       "\uBD88 \uC624\uCEEC\uD2B8": 500765502
       "\uBD88 \uC694\uAD34\uBB34\uC0AC": -1067656538
       "\uBD88 \uC6A9\uBCD1\uC655": 2001395061
+      "\uBD88 \uC7AD \uC624 \uB79C\uD134": -1647778727
+      "\uBD88 \uC8FC\uC0AC\uC704\uC220\uC0AC": -1418268635
       "\uBD88 \uCC28\uD06C\uB78C \uBB34\uB140": 1415877458
       "\uBD88 \uCD08\uCF54 \uAE30\uC0AC": -2024921425
       "\uBD88 \uCE90\uB17C\uAC78": -62793799
@@ -846,10 +848,8 @@ TextureImporter:
       "\uBD88 \uD3EC\uC774\uC98C \uB9C8\uC2A4\uD130": -767346607
       "\uBD88 \uD53C\uB2C9\uC2A4": -2099668478
       "\uBD88 \uD558\uD504\uC220\uC0AC": 1775066080
+      "\uBD88 \uD638\uB8E8\uC2A4": 716206698
       "\uBD88 \uD64D\uCC28 \uB808\uC774\uB514": 704509637
-      "\uBD88\uC7AD \uC624 \uB79C\uD134": -1647778727
-      "\uBD88\uC8FC\uC0AC\uC704\uC220\uC0AC": -1418268635
-      "\uBD88\uD638\uB8E8\uC2A4": 716206698
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
