@@ -158,7 +158,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 8% 확률로 wfw_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.08f)
+                        else if (randomValue >= 0.005f && randomValue < 0.085f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = wfw_Monster_4[randomIndex];                 // 몬스터 소환
@@ -205,7 +205,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 8% 확률로 water_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.08f)
+                        else if (randomValue >= 0.005f && randomValue < 0.085f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, water_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = water_Monster_4[randomIndex];                 // 몬스터 소환
@@ -252,7 +252,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 8% 확률로 fire_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.08f)
+                        else if (randomValue >= 0.005f && randomValue < 0.085f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, fire_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = fire_Monster_4[randomIndex];                 // 몬스터 소환
@@ -299,7 +299,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 8% 확률로 wind_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.08f)
+                        else if (randomValue >= 0.005f && randomValue < 0.085f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, wind_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = wind_Monster_4[randomIndex];                 // 몬스터 소환
@@ -346,7 +346,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 6% 확률로 ld_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.06f)
+                        else if (randomValue >= 0.0035f && randomValue < 0.0635f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, ld_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = ld_Monster_4[randomIndex];                 // 몬스터 소환
@@ -378,6 +378,7 @@ public class SummonResult : MonoBehaviour
                 {
                     for (int i = 0; i < summonCount; i++)
                     {
+                        Debug.Log($"{i + 1} 번 반복");
                         float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
 
                         // 6.5% 확률로 wfw_Monster_5 에서 몬스터 소환
@@ -393,7 +394,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 93.5% 확률로 wfw_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.935f)
+                        else // (randomValue < 0.935f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = wfw_Monster_4[randomIndex];                 // 몬스터 소환
@@ -403,10 +404,6 @@ public class SummonResult : MonoBehaviour
                             images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
                             images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
                             currentIndex++; // 인덱스 증가
-                        }
-                        else
-                        {
-                            //Debug.Log("3성 소환");
                         }
                     }
                 }
@@ -440,7 +437,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 93.5% 확률로 water_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.935f)
+                        else //(randomValue < 0.935f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, water_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = water_Monster_4[randomIndex];                 // 몬스터 소환
@@ -450,10 +447,6 @@ public class SummonResult : MonoBehaviour
                             images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
                             images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
                             currentIndex++; // 인덱스 증가
-                        }
-                        else
-                        {
-                            //Debug.Log("3성 소환");
                         }
                     }
                 }
@@ -487,7 +480,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 93.5% 확률로 fire_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.935f)
+                        else //(randomValue < 0.935f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, fire_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = fire_Monster_4[randomIndex];                 // 몬스터 소환
@@ -497,10 +490,6 @@ public class SummonResult : MonoBehaviour
                             images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
                             images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
                             currentIndex++; // 인덱스 증가
-                        }
-                        else
-                        {
-                            //Debug.Log("3성 소환");
                         }
                     }
                 }
@@ -534,7 +523,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 93.5% 확률로 wind_Monster_4 에서 몬스터 소환
-                        else if (randomValue < 0.935f)
+                        else //(randomValue < 0.935f)
                         {
                             int randomIndex = UnityEngine.Random.Range(0, wind_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = wind_Monster_4[randomIndex];                 // 몬스터 소환
@@ -544,10 +533,6 @@ public class SummonResult : MonoBehaviour
                             images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
                             images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
                             currentIndex++; // 인덱스 증가
-                        }
-                        else
-                        {
-                            //Debug.Log("3성 소환");
                         }
                     }
                 }
@@ -581,7 +566,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 6.7% 확률로 wfw_Monster_5 에서 몬스터 소환(물불풍 5성)
-                        else if (randomValue < 0.067f)
+                        else if (randomValue  >= 0.004 && randomValue < 0.071f)     // 0.071 - 0.004 = 0.067
                         {
                             int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_5.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = wfw_Monster_5[randomIndex];                 // 몬스터 소환
@@ -593,7 +578,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 7.5% 확률로 ld_Monster_4 에서 몬스터 소환(빛암 4성)
-                        else if (randomValue < 0.075f)
+                        else if (randomValue >= 0.071 && randomValue < 0.146f)      // 0.146-0.071 = 0.075
                         {
                             int randomIndex = UnityEngine.Random.Range(0, ld_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = ld_Monster_4[randomIndex];                 // 몬스터 소환
@@ -605,7 +590,7 @@ public class SummonResult : MonoBehaviour
                             currentIndex++; // 인덱스 증가
                         }
                         // 85.4% 확률로 wfw_Monster_4 에서 몬스터 소환(물불풍 4성)
-                        else if (randomValue < 0.854f)
+                        else if(randomValue >= 0.146f)      // 1- 0.146 = 0.854
                         {
                             int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_4.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = wfw_Monster_4[randomIndex];                 // 몬스터 소환
@@ -618,7 +603,7 @@ public class SummonResult : MonoBehaviour
                         }
                         else
                         {
-                            // 이건 버그
+                            //Debug.Log("버그");
                         }
                     }
                 }
