@@ -10,7 +10,7 @@ public class TestDebug : MonoBehaviour
     private void Awake()
     {
         test_02_Sinby = FindAnyObjectByType<InputFieldClass>();
-        //test_02_Sinby.TotalText += AAA;
+        //test_02_Sinby.TotalText += ResultActiveOnOff;
     }
 
     /// <summary>

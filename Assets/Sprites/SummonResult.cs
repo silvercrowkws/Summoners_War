@@ -9,12 +9,12 @@ public class SummonResult : MonoBehaviour
     /// <summary>
     /// 물불풍 4성 몬스터
     /// </summary>
-    public Sprite[] wfw_Mnster_4;
+    public Sprite[] wfw_Monster_4;
 
     /// <summary>
     /// 물불풍 5성 몬스터
     /// </summary>
-    public Sprite[] wfw_Mnster_5;
+    public Sprite[] wfw_Monster_5;
 
     // 빛암속성 몬스터 ----------------------------------------
 
@@ -94,6 +94,11 @@ public class SummonResult : MonoBehaviour
     /// </summary>
     private int currentIndex = 0;
 
+    /// <summary>
+    /// 개수가 초과 되었을 때 보여질 텍스트(이미지)
+    /// </summary>
+    WrongText wrongText;
+
     private void Awake()
     {
         Transform child = transform.GetChild(0);
@@ -105,6 +110,7 @@ public class SummonResult : MonoBehaviour
     {
         summonButtons = FindAnyObjectByType<SummonButtons>();
         inputFieldClass = FindAnyObjectByType<InputFieldClass>();
+        wrongText = FindObjectOfType<WrongText>(true);      // 비활성화 된 상태이기 때문에 이렇게 찾음
 
         // 람다식으로 값 변경
         summonButtons.onChangeSprite += (index) =>
@@ -128,40 +134,498 @@ public class SummonResult : MonoBehaviour
 
         switch (summonNumber)
         {
-            case 1:
-                for (int i = 0; i < summonCount; i++)
+            // 신비 소환서 ----------------------------------------------------------------------------------------------------
+            case 1:     // 신비 소환서(물불풍 소환)
+
+                // 소환서 개수 999 까지만 허용
+                if (summonCount < 1000)
                 {
-                    //int randomValue = UnityEngine.Random.Range(0, 100); // 0부터 100 사이의 랜덤 값 생성
-                    float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
-
-                    // 0.5% 확률로 wfw_Mnster_5에서 몬스터 소환
-                    if (randomValue < 0.005f)
+                    for (int i = 0; i < summonCount; i++)
                     {
-                        int randomIndex = UnityEngine.Random.Range(0, wfw_Mnster_5.Length); // 랜덤 인덱스 선택
-                        Sprite summonedMonster = wfw_Mnster_5[randomIndex];                 // 몬스터 소환
-                        Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+                        //int randomValue = UnityEngine.Random.Range(0, 100); // 0부터 100 사이의 랜덤 값 생성
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
 
-                        // images 배열에 소환된 몬스터 이미지 할당
-                        images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
-                        images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
-                        currentIndex++; // 인덱스 증가
-                    }
-                    // 8% 확률로 wfw_Mnster_4에서 몬스터 소환
-                    else if (randomValue < 0.08f) // 0 ~ 0.5 (총 0.5) 이면 0.5% 확률
-                    {
-                        int randomIndex = UnityEngine.Random.Range(0, wfw_Mnster_4.Length); // 랜덤 인덱스 선택
-                        Sprite summonedMonster = wfw_Mnster_4[randomIndex];                 // 몬스터 소환
-                        Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+                        // 0.5% 확률로 wfw_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.005f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wfw_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
 
-                        // images 배열에 소환된 몬스터 이미지 할당
-                        images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
-                        images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
-                        currentIndex++; // 인덱스 증가
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 8% 확률로 wfw_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.08f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wfw_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 물 소환서 ----------------------------------------------------------------------------------------------------
+            case 2:     // 물 소환서
+
+                // 소환서 개수 999 까지만 허용
+                if (summonCount < 1000)
+                {
+                    for (int i = 0; i < summonCount; i++)
                     {
-                        //Debug.Log("3성 소환");
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 0.5% 확률로 water_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.005f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, water_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = water_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 8% 확률로 water_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.08f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, water_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = water_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
                     }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 불 소환서 ----------------------------------------------------------------------------------------------------
+            case 3:     // 불 소환서
+
+                // 소환서 개수 999 까지만 허용
+                if (summonCount < 1000)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 0.5% 확률로 fire_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.005f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, fire_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = fire_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 8% 확률로 fire_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.08f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, fire_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = fire_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 풍 소환서 ----------------------------------------------------------------------------------------------------
+            case 4:     // 풍 소환서
+
+                // 소환서 개수 999 까지만 허용
+                if (summonCount < 1000)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 0.5% 확률로 wind_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.005f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wind_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wind_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 8% 확률로 wind_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.08f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wind_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wind_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 빛암 소환서 ----------------------------------------------------------------------------------------------------
+            case 5:     // 빛암 소환서
+
+                // 소환서 개수 999 까지만 허용
+                if (summonCount < 1000)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 0.35% 확률로 ld_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.0035f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, ld_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = ld_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 6% 확률로 ld_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.06f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, ld_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = ld_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 전설 소환서 ----------------------------------------------------------------------------------------------------
+            case 6:     // 전설 소환서
+
+                // 소환서 개수가 100까지만 허용
+                if(summonCount < 101)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 6.5% 확률로 wfw_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.065f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wfw_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 93.5% 확률로 wfw_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.935f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wfw_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 물전설 소환서 ----------------------------------------------------------------------------------------------------
+            case 7:     // 물전설 소환서
+
+                // 소환서 개수가 100까지만 허용
+                if (summonCount < 101)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 6.5% 확률로 water_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.065f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, water_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = water_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 93.5% 확률로 water_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.935f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, water_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = water_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 불전설 소환서 ----------------------------------------------------------------------------------------------------
+            case 8:     // 불전설 소환서
+
+                // 소환서 개수가 100까지만 허용
+                if (summonCount < 101)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 6.5% 확률로 fire_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.065f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, fire_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = fire_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 93.5% 확률로 fire_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.935f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, fire_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = fire_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 풍전설 소환서 ----------------------------------------------------------------------------------------------------
+            case 9:     // 풍전설 소환서
+
+                // 소환서 개수가 100까지만 허용
+                if (summonCount < 101)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 6.5% 확률로 wind_Monster_5 에서 몬스터 소환
+                        if (randomValue < 0.065f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wind_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wind_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 93.5% 확률로 wind_Monster_4 에서 몬스터 소환
+                        else if (randomValue < 0.935f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wind_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wind_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            //Debug.Log("3성 소환");
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
+
+            // 전속성 전설 소환서 ----------------------------------------------------------------------------------------------------
+            case 10:     // 전속성 전설 소환서
+
+                // 소환서 개수가 100까지만 허용
+                if (summonCount < 101)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        float randomValue = UnityEngine.Random.Range(0f, 1f); // 0과 1 사이의 랜덤 숫자 생성
+
+                        // 0.4% 확률로 ld_Monster_5 에서 몬스터 소환(빛암 5성)
+                        if (randomValue < 0.004f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, ld_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = ld_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 6.7% 확률로 wfw_Monster_5 에서 몬스터 소환(물불풍 5성)
+                        else if (randomValue < 0.067f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_5.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wfw_Monster_5[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 7.5% 확률로 ld_Monster_4 에서 몬스터 소환(빛암 4성)
+                        else if (randomValue < 0.075f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, ld_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = ld_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        // 85.4% 확률로 wfw_Monster_4 에서 몬스터 소환(물불풍 4성)
+                        else if (randomValue < 0.854f)
+                        {
+                            int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_4.Length); // 랜덤 인덱스 선택
+                            Sprite summonedMonster = wfw_Monster_4[randomIndex];                 // 몬스터 소환
+                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+
+                            // images 배열에 소환된 몬스터 이미지 할당
+                            images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                            images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                            currentIndex++; // 인덱스 증가
+                        }
+                        else
+                        {
+                            // 이건 버그
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
                 }
                 break;
         }
@@ -180,7 +644,17 @@ public class SummonResult : MonoBehaviour
             images[i].color = Color.clear; // 알파값 0으로 설정
         }
 
+        this.gameObject.SetActive(true);        // 이 게임 오브젝트 활성화
+
         // currentIndex를 0으로 재설정
         currentIndex = 0;
+    }
+
+    /// <summary>
+    /// WrongText를 활성화 하는 함수
+    /// </summary>
+    private void WrongTextActive()
+    {
+        wrongText.gameObject.SetActive(true);
     }
 }

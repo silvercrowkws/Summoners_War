@@ -409,7 +409,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uC554 \uC870"
+      name: "\uC554 \uC870\uCEE4"
       rect:
         serializedVersion: 2
         x: 443
@@ -731,8 +731,7 @@ TextureImporter:
       "\uC554 \uC5D8\uD504 \uC21C\uCC30\uC790": 2064088525
       "\uC554 \uC6B4\uB514\uB124": -970295878
       "\uC554 \uC7AD \uC624 \uB79C\uD134": 194650208
-      "\uC554 \uC870": 430837875
-      "\uC554 \uC870\uCEE4": -500742055
+      "\uC554 \uC870\uCEE4": 430837875
       "\uC554 \uC8FC\uC0AC\uC704\uC220\uC0AC": -1393919930
       "\uC554 \uCC28\uD06C\uB78C \uBB34\uB140": 1968416546
       "\uC554 \uCF54\uBCFC\uD2B8 \uD3ED\uD0C4\uAD11": 1637168728
