@@ -570,7 +570,7 @@ public class SummonResult : MonoBehaviour
                         {
                             int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_5.Length); // 랜덤 인덱스 선택
                             Sprite summonedMonster = wfw_Monster_5[randomIndex];                 // 몬스터 소환
-                            Debug.Log($"소환된 4성 몬스터: {summonedMonster.name}");
+                            Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
 
                             // images 배열에 소환된 몬스터 이미지 할당
                             images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
@@ -613,7 +613,34 @@ public class SummonResult : MonoBehaviour
                     WrongTextActive();
                 }
                 break;
+
+            // 초월 소환서 ----------------------------------------------------------------------------------------------------
+            case 11:     // 초월 소환서
+
+                // 소환서 개수가 100까지만 허용
+                if (summonCount < 101)
+                {
+                    for (int i = 0; i < summonCount; i++)
+                    {
+                        // 100% 확률로 wfw_Monster_5 에서 몬스터 소환(물불풍 5성)
+                        int randomIndex = UnityEngine.Random.Range(0, wfw_Monster_5.Length); // 랜덤 인덱스 선택
+                        Sprite summonedMonster = wfw_Monster_5[randomIndex];                 // 몬스터 소환
+                        Debug.Log($"소환된 5성 몬스터: {summonedMonster.name}");
+
+                        // images 배열에 소환된 몬스터 이미지 할당
+                        images[currentIndex].color = Color.white;       // 알파값을 1로 설정하여 보이게 함
+                        images[currentIndex].sprite = summonedMonster;  // 이미지 업데이트
+                        currentIndex++; // 인덱스 증가
+                    }
+                }
+                else
+                {
+                    Debug.Log($"최대 수량 초과");
+                    WrongTextActive();
+                }
+                break;
         }
+
     }
 
     /// <summary>
